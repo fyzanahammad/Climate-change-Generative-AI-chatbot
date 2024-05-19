@@ -3,7 +3,6 @@ import streamlit as st
 import google.generativeai as genai
 
 from PyPDF2 import PdfReader
-from dotenv import load_dotenv
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -14,11 +13,13 @@ from langchain.prompts import PromptTemplate
 import nest_asyncio
 nest_asyncio.apply()
 
-# Load environment variables
-load_dotenv()
+
+# Accessing a secret
+api_key = st.secrets["API_KEY"]
+
 
 # Configure GenAI with the API key
-genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+genai.configure(api_key)
 
 def get_pdf_text(pdf_docs):
     text = ""
