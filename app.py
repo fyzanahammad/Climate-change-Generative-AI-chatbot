@@ -15,7 +15,7 @@ nest_asyncio.apply()
 
 
 # Accessing a secret
-api_key = st.secrets["API_KEY"]
+api_key = st.secrets["GOOGLE_API_KEY"]
 
 
 # Configure GenAI with the API key
