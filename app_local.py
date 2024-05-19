@@ -62,7 +62,6 @@ if 'chat_history' not in st.session_state:
 option = st.radio("Select an option:", ("Climate Change Chatbot", "Answer from PDFs related to Climate change" ))
 
 if option == "Answer from PDFs related to Climate change":
-    # File uploader allows user to upload multiple PDFs
     uploaded_files = st.file_uploader("Choose PDF files (related to climate change)", accept_multiple_files=True)
     if uploaded_files:
         pdf_texts = get_pdf_text(uploaded_files)
@@ -70,39 +69,16 @@ if option == "Answer from PDFs related to Climate change":
         get_vector_store(text_chunks)
         st.success('PDFs processed and vector store updated!')
 
-    # User question input
     user_question = st.text_input("Enter your question here:")
-
-    # Initialize chat history if not already initialized
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = []
-
-    # Create chat interface
-    st.write("Chat Interface:")
-    chat_area = st.empty()
 
     if user_question:
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
         docs = new_db.similarity_search(user_question)
-
         chain = get_conversational_chain()
         response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
 
-        # Update chat history
-        st.session_state.chat_history.append(("You", user_question))
-        st.session_state.chat_history.append(("Bot", response["output_text"]))
-
-        # Display chat history in a WhatsApp-like interface
-        for sender, message in zip(st.session_state.chat_history[::2], st.session_state.chat_history[1::2]):
-            if sender == "You":
-                st.markdown(f"**You:** {message}")
-            else:
-                st.markdown(f"**Bot:** {message[1]}")
-
-    # Button to clear chat history
-    if st.button("Clear Chat History"):
-        st.session_state.chat_history = []
+        st.write("Bot:", response["output_text"])
 
 
 
