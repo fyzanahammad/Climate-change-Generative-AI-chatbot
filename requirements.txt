@@ -1,0 +1,14 @@
+wikipedia 
+wikipedia-api
+
+sentence-transformers
+faiss-cpu
+
+python-dotenv
+google-generativeai
+
+langchain
+langchain_community
+langchain_google_genai
+
+streamlit
