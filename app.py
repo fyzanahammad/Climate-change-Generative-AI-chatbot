@@ -19,7 +19,7 @@ api_key = st.secrets["GOOGLE_API_KEY"]
 
 
 # Configure GenAI with the API key
-genai.configure(api_key)
+genai.configure()
 
 def get_pdf_text(pdf_docs):
     text = ""
