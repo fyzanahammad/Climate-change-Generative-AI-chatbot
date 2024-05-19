@@ -1,10 +1,9 @@
 wikipedia 
 wikipedia-api
 
-sentence-transformers
+dotenv
+PyPDF2
 faiss-cpu
-
-python-dotenv
 google-generativeai
 
 langchain
@@ -12,3 +11,5 @@ langchain_community
 langchain_google_genai
 
 streamlit
+
+nest-asyncio
